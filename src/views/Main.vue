@@ -1,14 +1,6 @@
 <template>
   <div class="main-view">
-    <list-box></list-box>
-    <div class="list-box"></div>
-    <div class="list-box"></div>
-    <div class="list-box"></div>
-    <div class="list-box"></div>
-    <div class="list-box"></div>
-    <div class="list-box"></div>
-    <div class="list-box"></div>
-    <div class="list-box"></div>
+    <list-box :title="'to do'"></list-box>
   </div>
 </template>
 
@@ -23,14 +15,12 @@ export default {
 
 <style lang="scss" scoped>
 .main-view {
-  height: calc(100vh - 60px);
   display: flex;
   flex-flow: row;
+  align-items: flex-start;
   overflow-x: auto;
 }
 .list-box {
   flex: 400px 0 0;
-  height: 600px;
-  border: 1px solid red;
 }
 </style>
