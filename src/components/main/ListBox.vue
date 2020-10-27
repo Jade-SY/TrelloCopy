@@ -5,7 +5,9 @@
       <v-spacer></v-spacer>
       <v-btn icon><v-icon>mdi-dots-horizontal</v-icon></v-btn>
     </v-row>
-    <div class="item-list-wrapper"></div>
+    <div class="item-list-wrapper">
+      <issue-card :title="'this is title'"></issue-card>
+    </div>
     <div class="btn-wrapper">
       <v-btn text color="#5e6c84"><v-icon>mdi-plus</v-icon> Add a card</v-btn>
     </div>
@@ -16,7 +18,9 @@
 export default {
   name: 'ListBox',
   props: ['title'],
-  components: {},
+  components: {
+    IssueCard: () => import('@/components/main/IssueCard.vue'),
+  },
 };
 </script>
 
@@ -30,6 +34,9 @@ export default {
   h2 {
     font-size: 1.3rem;
   }
+}
+.item-list-wrapper {
+  padding: 5px;
 }
 .btn-wrapper {
   padding: 5px;
