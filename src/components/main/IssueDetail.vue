@@ -8,13 +8,15 @@
           <v-btn class="close-btn" icon><v-icon>mdi-close</v-icon></v-btn>
         </div>
         <v-row>
-          <v-col cols="8" class="left-side">
+          <v-col cols="8" class="left-side pr-4">
             <due-date></due-date>
             <Description></Description>
             <check-list></check-list>
             <Activity></Activity>
           </v-col>
-          <v-col cols="4"></v-col>
+          <v-col cols="4">
+            <Actions></Actions>
+          </v-col>
         </v-row>
       </v-card>
     </v-overlay>
@@ -29,6 +31,7 @@ export default {
     Description: () => import('@/components/issue_detail/Description.vue'),
     CheckList: () => import('@/components/issue_detail/CheckList.vue'),
     Activity: () => import('@/components/issue_detail/Activity.vue'),
+    Actions: () => import('@/components/issue_detail/Actions.vue'),
   },
   data: () => ({
     overlay: false,
@@ -38,8 +41,9 @@ export default {
 
 <style lang="scss" scoped>
 .issue-detail-card {
-  width: 60vw;
+  width: 800px;
   min-height: 80vh;
+  overflow-y: auto;
   background: #f4f5f7;
   padding: 20px;
 }

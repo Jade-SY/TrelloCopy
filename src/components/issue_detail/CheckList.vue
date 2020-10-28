@@ -8,23 +8,29 @@
     </v-row>
     <div class="check-list-field">
       <v-row no-gutters align="center" class="mt-3">
-        <span style="margin-right:10px; font-size:12px;">0%</span>
+        <span style="margin-right:10px; font-size:12px;">{{ progress }}%</span>
         <v-col>
           <v-progress-linear
-            v-model="progress"
-            rounded
-            value="100"
             color="grey"
+            rounded
+            :value="progress"
             height="6"
-          >
-            <!-- <template v-slot:default="{ value }">
-          <span>{{ Math.ceil(value) }}%</span>
-        </template> -->
-          </v-progress-linear>
+          ></v-progress-linear>
         </v-col>
       </v-row>
-      <v-checkbox height="10" v-model="checkbox" :label="'dd'"></v-checkbox>
-      <v-btn class="ml-7" depressed color="#eaecef">Add an item</v-btn>
+      <div class="checkbox-list-wrapper">
+        <v-checkbox
+          v-for="(task, i) in tasks"
+          :key="i"
+          height="10"
+          v-model="task.complete"
+          :label="task.title"
+          class="check-list-item mt-2 mb-0 pa-0"
+        ></v-checkbox>
+      </div>
+      <div class="buttons-wrapper">
+        <v-btn class="ml-8" depressed small color="#eaecef">Add an item</v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -34,13 +40,18 @@ export default {
   name: 'CheckList',
   data() {
     return {
-      progress: '',
       checkbox: false,
       tasks: [
         { title: 'task1', complete: false },
         { title: 'task2', complete: false },
       ],
     };
+  },
+  computed: {
+    progress() {
+      let completeNum = this.tasks.filter((el) => el.complete).length;
+      return (completeNum / this.tasks.length) * 100;
+    },
   },
 };
 </script>
