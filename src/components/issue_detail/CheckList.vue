@@ -38,6 +38,7 @@
 <script>
 export default {
   name: 'CheckList',
+  props: ['checklist'],
   data() {
     return {
       checkbox: false,

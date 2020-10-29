@@ -6,7 +6,11 @@
       <v-btn icon><v-icon>mdi-dots-horizontal</v-icon></v-btn>
     </v-row>
     <div class="item-list-wrapper">
-      <issue-card :title="'this is title'"></issue-card>
+      <issue-card
+        :title="issue.title"
+        v-for="(issue, i) in issues"
+        :key="i"
+      ></issue-card>
     </div>
     <div class="btn-wrapper">
       <v-btn text color="#5e6c84"><v-icon>mdi-plus</v-icon> Add a card</v-btn>
@@ -17,7 +21,7 @@
 <script>
 export default {
   name: 'ListBox',
-  props: ['title'],
+  props: ['title', 'issues'],
   components: {
     IssueCard: () => import('@/components/main/IssueCard.vue'),
   },

@@ -14,7 +14,7 @@
       ></v-text-field>
     </v-row>
     <div class="activity-field">
-      <v-row no-gutters v-for="(comment, i) in activities" :key="i">
+      <v-row no-gutters v-for="(comment, i) in activity" :key="i">
         <div>
           <v-avatar><v-img :src="comment.imgSrc"></v-img></v-avatar>
         </div>
@@ -33,17 +33,6 @@
           </div>
         </div>
       </v-row>
-      <!-- <div class="comment" v-for="(user, i) in activities" :key="i">
-        <v-avatar size="40" color="#dfe1e6"
-          ><v-img :src="activities.imgSrc"></v-img
-        ></v-avatar>
-        <span class="ml-2 font-weight-medium">{{ activities[i].name }}</span>
-        <span class="text-caption ml-2">{{ activities[i].createdAt }}</span>
-        <v-card class="pa-3 my-2" width="50%">{{ activities[i].text }}</v-card>
-        <v-btn icon><v-icon></v-icon></v-btn>
-        <v-btn text x-small>Edit</v-btn>
-        <v-btn text small>Delete</v-btn>
-      </div> -->
     </div>
   </div>
 </template>
@@ -52,6 +41,7 @@
 import moment from 'moment';
 export default {
   name: 'Activity',
+  props: ['activity'],
   data() {
     return {
       profileImg:

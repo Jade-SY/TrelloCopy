@@ -26,6 +26,7 @@
 <script>
 export default {
   name: 'DueDate',
+  props: ['date'],
   data: () => ({
     date: new Date().toISOString().substr(0, 10),
     // new Date를 ISO스트링 방식으로 표현한 뒤 0~10번째 자리까지 표기
