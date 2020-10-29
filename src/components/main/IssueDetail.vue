@@ -3,18 +3,18 @@
     <div class="scroll-view">
       <v-card class="issue-detail-card" light>
         <div class="issue-detail-header">
-          <h2><v-icon>mdi-inbox-full</v-icon>{{ issues.title }}</h2>
-          <p>{{ issues.description }}</p>
+          <h2><v-icon>mdi-inbox-full</v-icon>{{ currentIssue.title }}</h2>
+          <p>in list {{ 'todo' }}</p>
           <v-btn class="close-btn" icon @click="closeDetail"
             ><v-icon>mdi-close</v-icon></v-btn
           >
         </div>
         <v-row>
           <v-col cols="8" class="left-side pr-4">
-            <due-date :date="date"></due-date>
-            <Description></Description>
-            <check-list :checklist="checklist"></check-list>
-            <Activity :activity="activity"></Activity>
+            <due-date :date="currentIssue.dueDate"></due-date>
+            <Description :descr="currentIssue.description"></Description>
+            <check-list :tasks="currentIssue.checklist"></check-list>
+            <Activity :activities="currentIssue.activities"></Activity>
           </v-col>
           <v-col cols="4">
             <Actions></Actions>
@@ -30,7 +30,7 @@ import { mapState } from 'vuex';
 // vuex를 통해서 오버레이 팝업 기능 구현(컴포넌트 간의 통신)
 export default {
   name: 'IssueDetail',
-  props: ['issues', 'date', 'activity'],
+  props: ['issues'],
   components: {
     DueDate: () => import('@/components/issue_detail/DueDate.vue'),
     Description: () => import('@/components/issue_detail/Description.vue'),
@@ -43,7 +43,7 @@ export default {
       this.$store.commit('toggleIsDetailShow');
     },
   },
-  computed: { ...mapState(['isDetailShow']) },
+  computed: { ...mapState(['isDetailShow', 'currentIssue']) },
 };
 </script>
 

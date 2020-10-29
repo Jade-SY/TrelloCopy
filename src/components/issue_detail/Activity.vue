@@ -14,7 +14,7 @@
       ></v-text-field>
     </v-row>
     <div class="activity-field">
-      <v-row no-gutters v-for="(comment, i) in activity" :key="i">
+      <v-row no-gutters v-for="(comment, i) in activities" :key="i">
         <div>
           <v-avatar><v-img :src="comment.imgSrc"></v-img></v-avatar>
         </div>
@@ -41,30 +41,11 @@
 import moment from 'moment';
 export default {
   name: 'Activity',
-  props: ['activity'],
+  props: ['activities'],
   data() {
     return {
       profileImg:
         'https://6.vikiplatform.com/image/a11230e2d98d4a73825a4c10c8c6feb0.jpg?x=b&a=0x0&s=590x330&q=h&e=t&f=t&cb=1',
-      today: new Date().toGMTString(),
-      activities: [
-        {
-          id: 0,
-          imgSrc:
-            'https://i.pinimg.com/736x/0b/2f/8a/0b2f8a51314ab1ebe0505aee843a33b1.jpg',
-          name: 'nickname',
-          text: 'hi my name is nick',
-          createdAt: '2020-10-27T08:09:34.345Z',
-        },
-        {
-          id: 0,
-          imgSrc:
-            'https://i.pinimg.com/474x/26/61/6e/26616ed70668ee3ee93b35c074d14bed.jpg',
-          name: 'nickname',
-          text: 'hi my name is nick',
-          createdAt: '2020-10-27T08:09:34.345Z',
-        },
-      ],
     };
   },
   methods: {

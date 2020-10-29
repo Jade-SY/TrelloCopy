@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     isDetailShow: false,
+    currentIssue: {},
     lists: [{
         id: 0,
         title: "todo"
@@ -20,7 +21,7 @@ export default new Vuex.Store({
         listId: 0,
         title: "login page",
         description: " make log in page",
-        dueDate: "",
+        dueDate: "2020-10-24",
         checklist: [{
             id: 0,
             title: "layout",
@@ -32,7 +33,7 @@ export default new Vuex.Store({
             complete: false
           }
         ],
-        activity: [{
+        activities: [{
             id: 0,
             imgSrc: "https://crhscountyline.com/wp-content/uploads/2020/03/Capture.png",
             name: "nickname",
@@ -53,7 +54,7 @@ export default new Vuex.Store({
         listId: 0,
         title: "login page",
         description: " make log in page",
-        dueDate: "",
+        dueDate: "2020-10-29",
         checklist: [{
             id: 0,
             title: "layout",
@@ -65,7 +66,7 @@ export default new Vuex.Store({
             complete: false
           }
         ],
-        activity: [{
+        activities: [{
             id: 0,
             imgSrc: "https://crhscountyline.com/wp-content/uploads/2020/03/Capture.png",
             name: "nickname",
@@ -86,6 +87,9 @@ export default new Vuex.Store({
   mutations: {
     toggleIsDetailShow(state) {
       state.isDetailShow = !state.isDetailShow
+    },
+    setCurrentIssue(state, payload) {
+      state.currentIssue = payload
     }
   },
   actions: {},

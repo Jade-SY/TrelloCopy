@@ -1,15 +1,15 @@
 <template>
   <v-card class="list-box">
     <v-row class="box-header" align="center" no-gutters>
-      <h2>{{ title }}</h2>
+      <h2>{{ list.title }}</h2>
       <v-spacer></v-spacer>
       <v-btn icon><v-icon>mdi-dots-horizontal</v-icon></v-btn>
     </v-row>
     <div class="item-list-wrapper">
       <issue-card
-        :title="issue.title"
-        v-for="(issue, i) in issues"
+        v-for="(issue, i) in relatedIssues"
         :key="i"
+        :issue="issue"
       ></issue-card>
     </div>
     <div class="btn-wrapper">
@@ -19,11 +19,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'ListBox',
-  props: ['title', 'issues'],
+  props: ['list'],
   components: {
     IssueCard: () => import('@/components/main/IssueCard.vue'),
+  },
+  computed: {
+    ...mapState(['issues']),
+    relatedIssues() {
+      return this.issues.filter((el) => el.listId === this.list.id);
+    },
   },
 };
 </script>

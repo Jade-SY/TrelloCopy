@@ -6,7 +6,7 @@
       <v-btn class="ml-3" depressed width="0" color="#eaecef">Edit</v-btn>
     </v-row>
     <div class="desc-field">
-      <p>this is description</p>
+      <p>{{ descr }}</p>
     </div>
   </div>
 </template>
@@ -14,6 +14,7 @@
 <script>
 export default {
   name: 'Description',
+  props: ['descr'],
 };
 </script>
 

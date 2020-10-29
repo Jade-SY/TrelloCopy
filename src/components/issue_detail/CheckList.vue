@@ -38,15 +38,9 @@
 <script>
 export default {
   name: 'CheckList',
-  props: ['checklist'],
+  props: ['tasks'],
   data() {
-    return {
-      checkbox: false,
-      tasks: [
-        { title: 'task1', complete: false },
-        { title: 'task2', complete: false },
-      ],
-    };
+    return {};
   },
   computed: {
     progress() {
