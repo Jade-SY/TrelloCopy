@@ -90,7 +90,23 @@ export default new Vuex.Store({
     },
     setCurrentIssue(state, payload) {
       state.currentIssue = payload
-    }
+    },
+    fixDate(state, payload) {
+      let target = state.issues.find(el => el.id === payload.id)
+      target.dueDate = payload.dueDate
+    },
+    fixDescr(state, payload) {
+      let target = state.issues.find(el => el.id === payload.id)
+      target.description = payload.descr
+    },
+    // fixDate, fixDescr...이렇게 하나하나 뮤테이션을 지정하면 한도 끝도 없어질 수 있음
+    // 이슈의 변경사항을 한번에 캐치하는 코드를 짠다(아래)
+    //다만 이렇게 할 경우 해당되는 부분만 바뀌는 위의 방식(연산량이 적어서 가벼움)과 달리 무겁다. 
+    //일장일단이지만 연산량이 많아봤자라 아래 방식을 추천
+    editIssue(state, payload) {
+      let target = state.issues.find(el => el.id === payload.id)
+      Object.assign(target, payload)
+    },
   },
   actions: {},
   modules: {}

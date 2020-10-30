@@ -16,7 +16,7 @@
       </template>
       <v-date-picker
         v-model="date"
-        @input="menu = true"
+        @input="menu = false"
         class="mt-1"
       ></v-date-picker>
     </v-menu>
@@ -26,10 +26,21 @@
 <script>
 export default {
   name: 'DueDate',
-  props: ['date'],
-  data: () => ({
-    menu: false,
-  }),
+  props: ['initDate'],
+  data() {
+    return {
+      menu: false,
+      date: this.initDate,
+    };
+  },
+  // 대부분의 경우 computed가 적합하지만 뭔가 값이 변경되는것을 관측하고
+  // 변경 타이밍(save버튼을 누른다던가..)을 따로 지정하기 어려울 때 watch를 쓴다. 공식문서 참조
+  watch: {
+    date(newValue) {
+      this.$emit('change-date', newValue);
+      // this.$emit('이벤트를 듣는 부모쪽에서 정한 이벤트 이름', 자식쪽에서 전달해줄 데이터)
+    },
+  },
 };
 </script>
 

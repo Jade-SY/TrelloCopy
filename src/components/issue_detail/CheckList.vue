@@ -4,7 +4,14 @@
       <v-icon class="mr-2">mdi-checkbox-marked-outline</v-icon>
       <h5>Checklist</h5>
       <v-spacer></v-spacer>
-      <v-btn class="ml-2" depressed width="0" color="#eaecef">Delete</v-btn>
+      <v-btn
+        class="ml-2"
+        depressed
+        width="0"
+        color="#eaecef"
+        @click="deleteTask"
+        >Delete</v-btn
+      >
     </v-row>
     <div class="check-list-field">
       <v-row no-gutters align="center" class="mt-3">
@@ -38,9 +45,14 @@
 <script>
 export default {
   name: 'CheckList',
-  props: ['tasks'],
+  props: ['tasks'], //initTasks,
   data() {
     return {};
+  },
+  methods: {
+    // deleteTask() {
+    //   let complete = this.tasks.indexOf((el) => el.complete);
+    // },
   },
   computed: {
     progress() {
