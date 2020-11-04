@@ -20,11 +20,23 @@
               :init-descr="currentIssue.description"
               @change-descr="changeDescr"
             ></Description>
-            <check-list :tasks="currentIssue.checklist"></check-list>
-            <Activity :activities="currentIssue.activities"></Activity>
+            <check-list
+              :tasks="currentIssue.checklist"
+              @add-check-item="addCheckListItem"
+            ></check-list>
+            <Activity
+              :activities="currentIssue.activities"
+              @add-new-comment="addNewComment"
+              @edit-comment="editComment"
+              @delete-comment="deleteComment"
+            ></Activity>
           </v-col>
           <v-col cols="4">
-            <Actions></Actions>
+            <Actions
+              @move-issue="moveIssue"
+              @copy-issue="copyIssue"
+              @delete-issue="deleteIssue"
+            ></Actions>
           </v-col>
         </v-row>
       </v-card>
@@ -39,7 +51,6 @@ import _ from 'lodash';
 
 export default {
   name: 'IssueDetail',
-  props: ['issues'],
   components: {
     DueDate: () => import('@/components/issue_detail/DueDate.vue'),
     Description: () => import('@/components/issue_detail/Description.vue'),
@@ -63,12 +74,57 @@ export default {
       //   id: this.currentIssue.id,
       //   description: text,
       // });
+      let clone = _.cloneDeep(this.currentIssue); //본 데이터 훼손을 막기 위해 lodash문법을 이용하여 데이터 복제
+      clone.description = text; //복제한 데이터를 변경
+      this.$store.commit('editIssue', clone); //변경된 데이터를 vuex에 전달
+    },
+    addCheckListItem(item) {
       let clone = _.cloneDeep(this.currentIssue);
-      clone.description = text;
+      clone.checklist.push(item);
       this.$store.commit('editIssue', clone);
     },
+
+    addNewComment(comment) {
+      let clone = _.cloneDeep(this.currentIssue);
+      clone.activities.push(comment);
+      this.$store.commit('editIssue', clone);
+    },
+    editComment(comment) {
+      let clone = _.cloneDeep(this.currentIssue);
+      let target = clone.activities.find((el) => el.id === comment.id);
+      target.text = comment.text;
+      this.$store.commit('editIssue', clone);
+    },
+    deleteComment(id) {
+      let clone = _.cloneDeep(this.currentIssue);
+      let targetIndex = clone.activities.findIndex((el) => el.id === id);
+      clone.activities.splice(targetIndex, 1);
+      this.$store.commit('editIssue', clone);
+    },
+    moveIssue(list) {
+      let clone = _.cloneDeep(this.currentIssue);
+      clone.listId = list.id;
+      this.$store.commit('editIssue', clone);
+    },
+    copyIssue(list) {
+      let clone = _.cloneDeep(this.currentIssue);
+      clone.id = this.newIssueId;
+      clone.listId = list.id;
+      this.$store.commit('addIssue', clone);
+    },
+    deleteIssue() {
+      this.$store.commit('deleteIssue', this.currentIssue.id);
+    },
   },
-  computed: { ...mapState(['isDetailShow', 'currentIssue']) },
+  computed: { ...mapState(['isDetailShow', 'currentIssue', 'issues']) },
+  newIssueId() {
+    return (
+      this.activities.reduce((acc, cur) => {
+        acc = Math.max(acc, cur.id);
+        return acc;
+      }, 0) + 1
+    );
+  },
 };
 </script>
 

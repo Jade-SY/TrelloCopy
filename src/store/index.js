@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     isDetailShow: false,
     currentIssue: {},
+
     lists: [{
         id: 0,
         title: "todo"
@@ -14,6 +15,10 @@ export default new Vuex.Store({
       {
         id: 1,
         title: "doing"
+      },
+      {
+        id: 2,
+        title: "done"
       }
     ],
     issues: [{
@@ -50,10 +55,10 @@ export default new Vuex.Store({
         ]
       },
       {
-        id: 0,
+        id: 1,
         listId: 0,
-        title: "login page",
-        description: " make log in page",
+        title: "menu page",
+        description: " make menu page",
         dueDate: "2020-10-29",
         checklist: [{
             id: 0,
@@ -64,7 +69,12 @@ export default new Vuex.Store({
             id: 1,
             title: "function",
             complete: false
-          }
+          },
+          {
+            id: 2,
+            title: "function2",
+            complete: false
+          },
         ],
         activities: [{
             id: 0,
@@ -81,7 +91,7 @@ export default new Vuex.Store({
             createdAt: "2020-10-27T08:05:34.435Z"
           }
         ]
-      }
+      },
     ]
   },
   mutations: {
@@ -107,6 +117,22 @@ export default new Vuex.Store({
       let target = state.issues.find(el => el.id === payload.id)
       Object.assign(target, payload)
     },
+    addIssue(state, payload) {
+      state.issues.push(payload)
+    },
+    deleteIssue(state, payload) {
+      let targetIndex = state.issues.findIndex((el) => el.id === payload)
+      state.issues.splice(targetIndex, 1)
+      state.isDetailShow = false
+    },
+    addList(state, payload) {
+      state.lists.push(payload)
+    },
+    deleteList(state, payload) {
+      let targetIndex = state.lists.findIndex((el) => el.id === payload)
+      state.lists.splice(targetIndex, 1)
+    }
+
   },
   actions: {},
   modules: {}
